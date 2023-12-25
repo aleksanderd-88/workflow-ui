@@ -9,18 +9,21 @@
       Create new note
     </AppButton>
 
-    <AppEditor
-      v-if="editorOpen"
-      class="home__editor" 
-      @on-text-change="saveTextChange($event)"
-      @close="editorOpen = false" 
-    />
+    <AppOverlay :is-visible="editorOpen" @close="editorOpen = false">
+      <AppEditor
+        v-if="editorOpen"
+        class="home__editor" 
+        @on-text-change="saveTextChange($event)"
+        @close="editorOpen = false" 
+      />
+    </AppOverlay>
   </div>
 </template>
 
 <script setup lang="ts">
 import AppButton from '@/common/AppButton.vue';
 import AppEditor from '@/common/AppEditor.vue';
+import AppOverlay from '@/common/AppOverlay.vue';
 import { ref } from 'vue'
 
 const editorOpen = ref(false)

@@ -7,13 +7,20 @@
         >{{ statusText }}
       </p>
 
-      <NDatePicker 
-        v-model:value="timestamp" 
-        type="date"
-        class="editor__date-picker" 
-      />
+      <NTooltip trigger="hover">
+        <template #trigger>
+          <NDatePicker 
+            v-model:value="timestamp" 
+            type="date"
+            class="editor__date-picker" 
+          />
+        </template>
+        Set date for when note should be due. If not selected, no action will be set.
+      </NTooltip>
 
-      <AppButton class="editor__close-btn" @click="$emit('close')" />
+      <div class="editor__actions">
+        <AppButton class="editor__close-btn" @click="$emit('close')" />
+      </div>
     </header>
 
     <Editor
@@ -73,9 +80,10 @@ const resetStates = () => {
     &__top-bar {
       border: 1px solid #ccc;
       border-bottom: unset;
-      height: 40px;
+      padding: 5px;
       display: flex;
       align-items: center;
+      background-color: #fff;
     }
 
     &__save-text {
@@ -97,7 +105,7 @@ const resetStates = () => {
       flex: 2;
     }
   
-    &__close-btn {
+    &__actions {
       margin-left: auto;
       flex: 1;
       display: flex;
