@@ -7,6 +7,12 @@
         >{{ statusText }}
       </p>
 
+      <NDatePicker 
+        v-model:value="timestamp" 
+        type="date"
+        class="editor__date-picker" 
+      />
+
       <AppButton class="editor__close-btn" @click="$emit('close')" />
     </header>
 
@@ -30,6 +36,7 @@ const emit = defineEmits<{
 
 const statusText = ref('')
 const isTyping = ref(false)
+const timestamp = ref()
 
 watch(() => isTyping.value, val => {
   if ( val ) 
@@ -72,6 +79,7 @@ const resetStates = () => {
     }
 
     &__save-text {
+      flex: 1;
       padding-left: 10px;
       font-size: .8rem;
       opacity: 0;
@@ -83,9 +91,17 @@ const resetStates = () => {
         visibility: visible;
       }
     }
+
+    &__date-picker {
+      margin: auto;
+      flex: 2;
+    }
   
     &__close-btn {
       margin-left: auto;
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
     }
   
     &__element {
