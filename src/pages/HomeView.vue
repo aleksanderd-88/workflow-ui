@@ -15,11 +15,12 @@
 
 <script setup lang="ts">
 import AppButton from '@/common/AppButton.vue';
-import { ref } from 'vue'
-import { useRoute } from 'vue-router';
+import { computed } from 'vue'
+import { useRoute } from "vue-router";
 
 const route = useRoute()
-const editorOpen = ref((route.name === 'create') || false)
+
+const editorOpen = computed(() => route?.name?.toString() === 'create')
 </script>
 
 <style lang="scss" scoped>
