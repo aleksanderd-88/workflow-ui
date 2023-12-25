@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <AppButton 
-      icon="check" 
+      icon="plus" 
       class="home__add-btn"
       @click="editorOpen = true"
       v-if="!editorOpen"
@@ -34,7 +34,7 @@ const saveTextChange = (event: string) => {
 <style lang="scss" scoped>
   .home {
     display: flex;
-    height: 100vh;    
+    height: calc(100vh - 60px);    
 
     &__add-btn {
       width: 70%;
