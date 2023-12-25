@@ -1,51 +1,56 @@
 <template>
   <div class="editor">
     <header class="editor__top-bar">
-      <p>{{ statusText }}</p>
-      <AppButton class="editor__close-btn" />
+      <p 
+        class="editor__save-text"
+        :class="modifiedClass"
+        >{{ statusText }}
+      </p>
+
+      <AppButton class="editor__close-btn" @click="$emit('close')" />
     </header>
 
     <Editor
-      @text-change="$emit('on-text-change', $event)"
-      @input="startTyping()"
+      @input="debounceOnTextChange($event)"
       class="editor__element"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import Editor, { type EditorTextChangeEvent } from 'primevue/editor';
+import Editor from 'primevue/editor';
 import AppButton from '@/common/AppButton.vue';
+import { debounce } from 'lodash'
+import { computed, ref, watch } from 'vue';
 
-defineEmits<{
-  (event: 'on-text-change', text: EditorTextChangeEvent): void
+const emit = defineEmits<{
+  (event: 'on-text-change', text: string): void
+  (event: 'close'): void
 }>()
 
-import { ref } from 'vue';
-
 const statusText = ref('')
-const timerId = ref()
 const isTyping = ref(false)
 
-const startTyping = () => {
+watch(() => isTyping.value, val => {
+  if ( val ) 
+    setTimeout(() => resetStates(), 1000);
+})
+
+const modifiedClass = computed(() => isTyping.value && 'editor__save-text--visible')
+
+const onTextChange = (event: { data: string }) => {
   isTyping.value = true
   statusText.value = 'Saving ...'
-
-  timerId.value = setTimeout(() => {
-    resetStates()
-  }, 1000);
+  emit('on-text-change', event.data)
 }
+
+const debounceOnTextChange = debounce(onTextChange, 600)
 
 const resetStates = () => {
   statusText.value = ''
   isTyping.value = false
-  resetTimer()
 }
 
-const resetTimer = () => {
-  clearTimeout(timerId.value)
-  timerId.value = null
-}
 </script>
 
 <style lang="scss" scoped>
@@ -64,9 +69,18 @@ const resetTimer = () => {
       height: 40px;
       display: flex;
       align-items: center;
+    }
 
-      p {
-        padding-left: 10px;
+    &__save-text {
+      padding-left: 10px;
+      font-size: .8rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .25s, visibility .25s ease;
+
+      &--visible {
+        opacity: 1;
+        visibility: visible;
       }
     }
   
