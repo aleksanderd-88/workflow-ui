@@ -3,35 +3,23 @@
     <AppButton 
       icon="plus" 
       class="home__add-btn"
-      @click="editorOpen = true"
+      @click="$router.push({ name: 'create' })"
       v-if="!editorOpen"
     >
       Create new note
     </AppButton>
 
-    <AppOverlay :is-visible="editorOpen" @close="editorOpen = false">
-      <AppEditor
-        v-if="editorOpen"
-        class="home__editor" 
-        @on-text-change="saveTextChange($event)"
-        @close="editorOpen = false" 
-      />
-    </AppOverlay>
+    <router-view />
   </div>
 </template>
 
 <script setup lang="ts">
 import AppButton from '@/common/AppButton.vue';
-import AppEditor from '@/common/AppEditor.vue';
-import AppOverlay from '@/common/AppOverlay.vue';
 import { ref } from 'vue'
+import { useRoute } from 'vue-router';
 
-const editorOpen = ref(false)
-
-const saveTextChange = (event: string) => {
-  //- Save text changes
-  console.log('text', event);
-}
+const route = useRoute()
+const editorOpen = ref((route.name === 'create') || false)
 </script>
 
 <style lang="scss" scoped>
