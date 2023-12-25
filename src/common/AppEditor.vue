@@ -11,14 +11,14 @@
     </header>
 
     <Editor
-      @input="debounceOnTextChange($event)"
+      @text-change="debounceOnTextChange($event)"
       class="editor__element"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import Editor from 'primevue/editor';
+import Editor, { type EditorTextChangeEvent } from 'primevue/editor';
 import AppButton from '@/common/AppButton.vue';
 import { debounce } from 'lodash'
 import { computed, ref, watch } from 'vue';
@@ -38,10 +38,10 @@ watch(() => isTyping.value, val => {
 
 const modifiedClass = computed(() => isTyping.value && 'editor__save-text--visible')
 
-const onTextChange = (event: { data: string }) => {
+const onTextChange = (event: EditorTextChangeEvent) => {
   isTyping.value = true
   statusText.value = 'Saving ...'
-  emit('on-text-change', event.data)
+  emit('on-text-change', event.textValue)
 }
 
 const debounceOnTextChange = debounce(onTextChange, 600)
