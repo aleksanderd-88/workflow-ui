@@ -1,0 +1,16 @@
+//- "Add" - button
+.add-btn {
+  width: 70%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  border-radius: 10px;
+
+  @media (min-width: 400px) {
+    width: 250px;
+  }
+}

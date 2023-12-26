@@ -40,7 +40,7 @@ export const useNoteStore = defineStore('note', () => {
 
   const listNotes = () => {
     return API.listNotes().then(({ data }) => {
-      notes.value = data
+      notes.value = data.rows
     })
     .catch(err => console.log(err))
   }
@@ -49,6 +49,7 @@ export const useNoteStore = defineStore('note', () => {
     noteData,
     getNoteData,
     setNoteDate,
-    listNotes
+    listNotes,
+    notes
   }
 })
