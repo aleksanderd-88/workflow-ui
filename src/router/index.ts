@@ -13,12 +13,19 @@ const router = createRouter({
         title: 'Welcome'
       },
       children: [{
-        path: '/notes/create',
+        path: `/notes/:id`,
+        name: 'edit',
+        component: () => import('@/pages/Notes/NoteView.vue'),
+        meta: {
+          title: 'Edit note'
+        }
+      }, {
+        path: `/notes/create`,
         name: 'create',
-        component: () => import('@/pages/Notes/CreateNote.vue'),
+        component: () => import('@/pages/Notes/NoteView.vue'),
         meta: {
           title: 'Create new note'
-        }
+        },
       }]
     }
   ]
