@@ -1,9 +1,10 @@
 <template>
-  <div class="note-item">
+  <div class="note-item" @click="$emit('on-click')">
     <main class="note-item__content">
       <p class="note-item__created-at">
         {{ createdAt }}
       </p>
+
       <p class="note-item__timestamp">
         {{ timestamp }}
       </p>
@@ -25,6 +26,7 @@ const props = defineProps({
 
 const createdAt = computed(() => moment(props.item.createdAt).format('YYYY-MM-DD'))
 const timestamp = computed(() => moment(props.item.createdAt).format('HH:mm'))
+
 </script>
 
 <style lang="scss" scoped>

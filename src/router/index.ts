@@ -22,6 +22,13 @@ const router = createRouter({
         component: () => import('@/pages/Notes/NoteView.vue'),
         meta: {
           title: 'Edit note'
+        },
+        beforeEnter(to) {
+          const id = to.params?.id?.toString()
+          if ( !id )
+            return false
+          
+          useNoteStore().getNoteData(id).then(() => true)
         }
       }, {
         path: `/notes/create`,

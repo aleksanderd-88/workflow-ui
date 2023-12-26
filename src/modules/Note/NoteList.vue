@@ -17,6 +17,7 @@
         v-for="item in items" 
         :key="item._id"
         :item="item"
+        @on-click="viewNote(item._id as string)"
       />
     </div>
   </div>
@@ -27,8 +28,15 @@ import { computed } from 'vue';
 import NoteItem from './NoteItem.vue';
 import { useNoteStore } from './stores';
 import AppButton from '@/common/AppButton.vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 const items = computed(() => useNoteStore().notes)
+
+const viewNote = (id: string) => {
+  router.push({ name: 'edit', params: { id: id } })
+}
 
 </script>
 

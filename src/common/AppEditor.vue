@@ -44,7 +44,7 @@ const emit = defineEmits<{
   (event: 'close'): void
 }>()
 
-defineProps({
+const props = defineProps({
   data: {
     type: Object as PropType<NotePropType>,
     default: () => ({}) 
@@ -53,7 +53,12 @@ defineProps({
 
 const statusText = ref('')
 const isTyping = ref(false)
-const timestamp = ref(null)
+const timestamp = ref<null | number>(null)
+
+watch(() => props.data.dueDate, value => {
+  if ( value )
+    timestamp.value = new Date(value).getTime()
+})
 
 watch(() => isTyping.value, val => {
   if ( val ) 
@@ -65,6 +70,7 @@ const modifiedClass = computed(() => isTyping.value && 'editor__save-text--visib
 const onTextChange = (event: EditorTextChangeEvent) => {
   isTyping.value = true
   statusText.value = 'Saving ...'
+
   const params = {
     text: event.htmlValue, 
     dueDate: !timestamp.value ? null : new Date(timestamp.value)

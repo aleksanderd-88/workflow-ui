@@ -10,9 +10,9 @@ export const useNoteStore = defineStore('note', () => {
   const route = useRoute()
 
   watch(() => route.name, (val) => {
-    const createNoteView = val?.toString() === 'create'
-    if ( createNoteView )
-      resetStore()
+    const isRoute = ['create', 'edit'].includes(val?.toString()!)
+    if ( isRoute )
+      return resetStore()
   })
 
   const resetStore = () => {

@@ -31,7 +31,7 @@ import NoteList from '@/modules/Note/NoteList.vue';
 
 const route = useRoute()
 
-const editorOpen = computed(() => route?.name?.toString() === 'create')
+const editorOpen = computed(() => ['create', 'edit'].some(r => r.includes(route?.name?.toString()!)))
 const notesExist = computed(() => useNoteStore().notes.length)
 const modifiedClass = computed(() => !notesExist.value && 'home--d-flex')
 
