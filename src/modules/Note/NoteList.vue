@@ -38,10 +38,14 @@ const items = computed(() => useNoteStore().notes)
 
     &__top-bar {
       width: 100%;
-    }
-
-    &__headline {
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
       margin-bottom: 2rem;
+
+      @media (min-width: 450px) {
+        justify-content: space-between;
+      }
     }
 
     &__items {

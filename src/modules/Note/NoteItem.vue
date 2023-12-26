@@ -1,8 +1,13 @@
 <template>
   <div class="note-item">
-    <p class="note-item__created-at">
-      {{ createdAt }}
-    </p>
+    <main class="note-item__content">
+      <p class="note-item__created-at">
+        {{ createdAt }}
+      </p>
+      <p class="note-item__timestamp">
+        {{ timestamp }}
+      </p>
+    </main>
   </div>
 </template>
 
@@ -18,7 +23,8 @@ const props = defineProps({
   }
 })
 
-const createdAt = computed(() => moment(props.item.createdAt).format('YYYY-MM-DD HH:mm'))
+const createdAt = computed(() => moment(props.item.createdAt).format('YYYY-MM-DD'))
+const timestamp = computed(() => moment(props.item.createdAt).format('HH:mm'))
 </script>
 
 <style lang="scss" scoped>
@@ -26,8 +32,15 @@ const createdAt = computed(() => moment(props.item.createdAt).format('YYYY-MM-DD
     cursor: pointer;
     display: flex;
 
-    &__created-at {
+    &__content {
       margin: auto;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    &__timestamp {
+      font-size: .8rem;
+      font-weight: 600;
     }
   }
 </style>
