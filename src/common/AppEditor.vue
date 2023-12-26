@@ -12,7 +12,8 @@
           <NDatePicker 
             v-model:value="timestamp" 
             type="date"
-            class="editor__date-picker" 
+            class="editor__date-picker"
+            @update:value="debounceOnTextChange($event)"
           />
         </template>
         Set date for when note should be due. If not selected, no action will be set.
@@ -24,6 +25,7 @@
     </header>
 
     <Editor
+      :model-value="data.text"
       @text-change="debounceOnTextChange($event)"
       class="editor__element"
     />
@@ -34,16 +36,24 @@
 import Editor, { type EditorTextChangeEvent } from 'primevue/editor';
 import AppButton from '@/common/AppButton.vue';
 import { debounce } from 'lodash'
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, type PropType } from 'vue';
+import type { NotePropType } from '@/modules/Note/types';
 
 const emit = defineEmits<{
-  (event: 'on-text-change', text: string): void
+  (event: 'on-text-change', params: { text: string, dueDate: null | Date }): void
   (event: 'close'): void
 }>()
 
+defineProps({
+  data: {
+    type: Object as PropType<NotePropType>,
+    default: () => ({}) 
+  }
+})
+
 const statusText = ref('')
 const isTyping = ref(false)
-const timestamp = ref()
+const timestamp = ref(null)
 
 watch(() => isTyping.value, val => {
   if ( val ) 
@@ -55,7 +65,11 @@ const modifiedClass = computed(() => isTyping.value && 'editor__save-text--visib
 const onTextChange = (event: EditorTextChangeEvent) => {
   isTyping.value = true
   statusText.value = 'Saving ...'
-  emit('on-text-change', event.textValue)
+  const params = {
+    text: event.htmlValue, 
+    dueDate: !timestamp.value ? null : new Date(timestamp.value)
+  }
+  emit('on-text-change', params)
 }
 
 const debounceOnTextChange = debounce(onTextChange, 600)

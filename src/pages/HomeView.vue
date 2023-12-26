@@ -22,12 +22,17 @@
 <script setup lang="ts">
 import AppButton from '@/common/AppButton.vue';
 import { computed } from 'vue'
-import { useRoute } from "vue-router";
+import { onBeforeRouteUpdate, useRoute } from "vue-router";
 import AppOverlay from '@/common/AppOverlay.vue';
+import { useNoteStore } from '@/modules/Note/stores';
 
 const route = useRoute()
 
 const editorOpen = computed(() => route?.name?.toString() === 'create')
+
+onBeforeRouteUpdate(() => {
+  useNoteStore().listNotes()
+})
 </script>
 
 <style lang="scss" scoped>

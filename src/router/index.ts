@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/pages/HomeView.vue'
 import { setPageTitle } from '@/utils'
+import { useNoteStore } from '@/modules/Note/stores'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,8 +13,11 @@ const router = createRouter({
       meta: {
         title: 'Welcome'
       },
+      beforeEnter() {
+        useNoteStore().listNotes().then(() => true)
+      },
       children: [{
-        path: `/notes/:id`,
+        path: `/notes/:id/edit`,
         name: 'edit',
         component: () => import('@/pages/Notes/NoteView.vue'),
         meta: {
@@ -25,7 +29,7 @@ const router = createRouter({
         component: () => import('@/pages/Notes/NoteView.vue'),
         meta: {
           title: 'Create new note'
-        },
+        }
       }]
     }
   ]
