@@ -1,9 +1,9 @@
 <template>
-  <NoteItem />
+  <NoteEditor />
 </template>
 
 <script setup lang="ts">
-import NoteItem from '@/modules/Note/NoteItem.vue';
+import NoteEditor from '@/modules/Note/NoteEditor.vue';
 
 </script>
 
