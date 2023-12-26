@@ -1,16 +1,13 @@
 <template>
-  <AppOverlay :is-visible="$route.name === 'create'" @close="$router.go(-1)">
-    <AppEditor
-      class="home__editor" 
-      @on-text-change="saveTextChange($event)"
-      @close="$router.go(-1)" 
-    />
-  </AppOverlay>
+  <AppEditor
+    class="home__editor" 
+    @on-text-change="saveTextChange($event)"
+    @close="$router.go(-1)" 
+  />
 </template>
 
 <script setup lang="ts">
 import AppEditor from '@/common/AppEditor.vue';
-import AppOverlay from '@/common/AppOverlay.vue';
 
 const saveTextChange = (event: string) => {
   //- Save text changes

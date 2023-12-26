@@ -9,7 +9,13 @@
       Create new note
     </AppButton>
 
-    <router-view />
+    <AppOverlay :is-visible="editorOpen" @close="$router.go(-1)">
+      <router-view v-slot="{ Component }">
+        <transition name="scale" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>  
+    </AppOverlay>
   </div>
 </template>
 
@@ -17,6 +23,7 @@
 import AppButton from '@/common/AppButton.vue';
 import { computed } from 'vue'
 import { useRoute } from "vue-router";
+import AppOverlay from '@/common/AppOverlay.vue';
 
 const route = useRoute()
 
