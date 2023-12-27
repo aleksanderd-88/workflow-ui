@@ -23,7 +23,6 @@ import { computed, type PropType } from 'vue';
 import type { NotePropType } from './types';
 import moment from 'moment'
 import AppButton from '@/common/AppButton.vue';
-import MegaMenu from 'primevue/megamenu';
 
 const props = defineProps({
   item: {
