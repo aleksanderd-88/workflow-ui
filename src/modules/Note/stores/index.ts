@@ -45,11 +45,19 @@ export const useNoteStore = defineStore('note', () => {
     .catch(err => console.log(err))
   }
 
+  const deletNote = (id: string) => {
+    return API.deleteNote(id).then(() => {
+      return listNotes()
+    })
+    .catch(err => console.log(err))
+  }
+
   return {
     noteData,
     getNoteData,
     setNoteDate,
     listNotes,
-    notes
+    notes,
+    deletNote
   }
 })

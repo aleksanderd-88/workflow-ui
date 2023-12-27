@@ -13,6 +13,7 @@
     <AppButton 
       icon="trash" 
       class="note-options__action-btn note-options__action-btn--delete"
+      @click.stop="$emit('on-delete')"
     >
       Delete
     </AppButton>

@@ -16,5 +16,8 @@ export default {
   },
   listNotes(): Promise<AxiosResponse> {
     return client.get(`/notes/list`)
+  },
+  deleteNote(id: string): Promise<AxiosResponse> {
+    return client.delete(`/notes/${ id }/delete`)
   }
 }

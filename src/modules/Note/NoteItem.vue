@@ -16,7 +16,11 @@
       </p>
     </main>
 
-    <NoteOptions :is-visible="optionMenuVisible" @close="optionMenuVisible = false" />
+    <NoteOptions 
+      :is-visible="optionMenuVisible" 
+      @close="optionMenuVisible = false"
+      @on-delete="deleteNote(item._id!)"
+    />
   </AppButton>
 </template>
 
@@ -26,6 +30,7 @@ import type { NotePropType } from './types';
 import moment from 'moment'
 import AppButton from '@/common/AppButton.vue';
 import NoteOptions from './NoteOptions.vue';
+import { useNoteStore } from './stores';
 
 const props = defineProps({
   item: {
@@ -38,6 +43,13 @@ const optionMenuVisible = ref(false)
 
 const createdAt = computed(() => moment(props.item.createdAt).format('YYYY-MM-DD'))
 const timestamp = computed(() => moment(props.item.createdAt).format('HH:mm'))
+
+const deleteNote = (id: string) => {
+  if ( !confirm('Continue deleting note?') )
+    return
+
+  useNoteStore().deletNote(id as string)
+}
 
 </script>
 
