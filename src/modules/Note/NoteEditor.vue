@@ -17,7 +17,6 @@ import { computed } from 'vue';
 
 const saveTextChange = (event: NotePropType) => {
   //- Save text changes
-  console.log('text', event);
   const data = {
     text: event.text,
     dueDate: event.dueDate
