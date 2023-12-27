@@ -1,5 +1,5 @@
 <template>
-  <div class="note-item" @click="$emit('on-click')">
+  <AppButton class="note-item" @click="$emit('on-click')">
     <main class="note-item__content">
       <p class="note-item__created-at">
         {{ createdAt }}
@@ -9,13 +9,14 @@
         {{ timestamp }}
       </p>
     </main>
-  </div>
+  </AppButton>
 </template>
 
 <script setup lang="ts">
 import { computed, type PropType } from 'vue';
 import type { NotePropType } from './types';
 import moment from 'moment'
+import AppButton from '@/common/AppButton.vue';
 
 const props = defineProps({
   item: {
