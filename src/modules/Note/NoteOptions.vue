@@ -47,6 +47,7 @@ const modifiedClass = computed(() => props.isVisible && 'note-options--visible')
     background-color: #fff;
     transform: translateX(-100%);
     opacity: 0;
+    z-index: 1;
     visibility: hidden;
     transition: transform .25s, opacity .25s, visibility .25s ease;
 
