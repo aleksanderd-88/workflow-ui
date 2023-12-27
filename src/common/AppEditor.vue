@@ -58,7 +58,7 @@ const timestamp = ref<null | number>(null)
 watch(() => props.data.dueDate, value => {
   if ( value )
     timestamp.value = new Date(value).getTime()
-})
+}, { immediate: true })
 
 watch(() => isTyping.value, val => {
   if ( val ) 
