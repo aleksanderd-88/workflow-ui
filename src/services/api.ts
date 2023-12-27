@@ -2,7 +2,7 @@ import axios, { type AxiosResponse} from 'axios'
 import { type NotePropType } from '@/modules/Note/types'
 
 const client = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: `${ import.meta.env.VITE_API_URL }/api/v1`,
   withCredentials: false,
   timeout: 60000
 })
