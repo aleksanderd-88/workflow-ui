@@ -38,6 +38,7 @@ import AppButton from '@/common/AppButton.vue';
 import { debounce } from 'lodash'
 import { computed, ref, watch, type PropType } from 'vue';
 import type { NotePropType } from '@/modules/Note/types';
+import { useRoute } from 'vue-router';
 
 const emit = defineEmits<{
   (event: 'on-text-change', params: { text: string, dueDate: null | Date }): void
@@ -54,10 +55,12 @@ const props = defineProps({
 const statusText = ref('')
 const isTyping = ref(false)
 const timestamp = ref<null | number>(null)
+const route = useRoute()
 
 watch(() => props.data.dueDate, value => {
-  if ( value )
+  if ( value && route.name !== 'create' ) {
     timestamp.value = new Date(value).getTime()
+  }
 }, { immediate: true })
 
 watch(() => isTyping.value, val => {
