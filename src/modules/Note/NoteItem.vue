@@ -3,7 +3,7 @@
     <AppButton 
       class="note-item__action-btn" 
       icon="ellipsis-v"
-      @click.stop="showOptions()" 
+      @click.stop="optionMenuVisible = true"
     />
 
     <main class="note-item__content">
@@ -15,14 +15,17 @@
         {{ timestamp }}
       </p>
     </main>
+
+    <NoteOptions :is-visible="optionMenuVisible" @close="optionMenuVisible = false" />
   </AppButton>
 </template>
 
 <script setup lang="ts">
-import { computed, type PropType } from 'vue';
+import { computed, ref, type PropType } from 'vue';
 import type { NotePropType } from './types';
 import moment from 'moment'
 import AppButton from '@/common/AppButton.vue';
+import NoteOptions from './NoteOptions.vue';
 
 const props = defineProps({
   item: {
@@ -31,12 +34,10 @@ const props = defineProps({
   }
 })
 
+const optionMenuVisible = ref(false)
+
 const createdAt = computed(() => moment(props.item.createdAt).format('YYYY-MM-DD'))
 const timestamp = computed(() => moment(props.item.createdAt).format('HH:mm'))
-
-const showOptions = () => {
-  console.log('click on options');
-}
 
 </script>
 
@@ -45,6 +46,7 @@ const showOptions = () => {
     cursor: pointer;
     display: flex;
     position: relative;
+    overflow: hidden;
 
     &__action-btn {
       position: absolute;

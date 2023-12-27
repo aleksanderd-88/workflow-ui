@@ -20,7 +20,7 @@
       </NTooltip>
 
       <div class="editor__actions">
-        <AppButton class="editor__close-btn" @click="$emit('close')" />
+        <AppButton class="editor__close-btn" icon="times" @click="$emit('close')" />
       </div>
     </header>
 
