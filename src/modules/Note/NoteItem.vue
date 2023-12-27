@@ -21,6 +21,13 @@
       @close="optionMenuVisible = false"
       @on-delete="deleteNote(item._id!)"
     />
+
+    <NTooltip trigger="hover" v-if="item.dueDate">
+      <template #trigger>
+        <i class="note-item__info-icon pi pi-info-circle"></i>
+      </template>
+      {{ `You have a due date set to the ${ moment(item.dueDate).format('YYYY-MM-DD') }.` }}
+    </NTooltip>
   </AppButton>
 </template>
 
@@ -75,6 +82,13 @@ const deleteNote = (id: string) => {
     &__timestamp {
       font-size: .8rem;
       font-weight: 600;
+    }
+
+    &__info-icon {
+      position: absolute;
+      bottom: .5rem;
+      right: .5rem;
+      font-size: 1rem;
     }
   }
 </style>
