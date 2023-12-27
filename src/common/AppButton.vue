@@ -23,7 +23,7 @@ defineProps({
 
   icon: {
     type: String,
-    default: 'times'
+    default: null
   }
 })
 </script>

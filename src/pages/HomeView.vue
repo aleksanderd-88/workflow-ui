@@ -1,60 +1,55 @@
 <template>
-  <div class="home">
-    <AppButton 
+  <div class="home" :class="modifiedClass">
+    <NoteList v-if="notesExist" />
+
+    <AppButton
+      v-else
       icon="plus" 
-      class="home__add-btn"
-      @click="editorOpen = true"
-      v-if="!editorOpen"
+      class="add-btn d-flex center-align"
+      @click="$router.push({ name: 'create' })"
     >
       Create new note
     </AppButton>
 
-    <AppEditor
-      v-if="editorOpen"
-      class="home__editor" 
-      @on-text-change="saveTextChange($event)"
-      @close="editorOpen = false" 
-    />
+    <AppOverlay :is-visible="editorOpen" @close="$router.go(-1)">
+      <router-view v-slot="{ Component }">
+        <transition name="scale" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>  
+    </AppOverlay>
   </div>
 </template>
 
 <script setup lang="ts">
 import AppButton from '@/common/AppButton.vue';
-import AppEditor from '@/common/AppEditor.vue';
-import { ref } from 'vue'
+import { computed } from 'vue'
+import { onBeforeRouteUpdate, useRoute } from "vue-router";
+import AppOverlay from '@/common/AppOverlay.vue';
+import { useNoteStore } from '@/modules/Note/stores';
+import NoteList from '@/modules/Note/NoteList.vue';
 
-const editorOpen = ref(false)
+const route = useRoute()
 
-const saveTextChange = (event: string) => {
-  //- Save text changes
-  console.log('text', event);
-}
+const editorOpen = computed(() => ['create', 'edit'].some(r => r.includes(route?.name?.toString()!)))
+const notesExist = computed(() => useNoteStore().notes.length)
+const modifiedClass = computed(() => !notesExist.value && 'home--d-flex')
+
+onBeforeRouteUpdate(() => {
+  useNoteStore().listNotes()
+})
 </script>
 
 <style lang="scss" scoped>
   .home {
-    display: flex;
-    height: calc(100vh - 60px);    
-
-    &__add-btn {
-      width: 70%;
-      margin: auto;
-      padding: 15px;
-      border: 1px solid #ccc;
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      border-radius: 10px;
-
-      @media (min-width: 400px) {
-        width: 250px;
-      }
-    }
+    height: calc(100vh - 60px);
 
     &__editor {
       margin: auto;
+    }
+
+    &--d-flex {
+      display: flex;
     }
   }
 </style>
