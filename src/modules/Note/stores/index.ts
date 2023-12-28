@@ -3,6 +3,7 @@ import { ref, watch } from "vue";
 import { type NotePropType } from "../types";
 import API from '@/services/api'
 import { useRoute } from "vue-router";
+import { useLoaderStore } from "@/modules/Loader/stores";
 
 export const useNoteStore = defineStore('note', () => {
   const noteData = ref({} as NotePropType)
@@ -39,10 +40,12 @@ export const useNoteStore = defineStore('note', () => {
   }
 
   const listNotes = () => {
+    useLoaderStore().setLoading(true)
     return API.listNotes().then(({ data }) => {
       notes.value = data.rows
     })
     .catch(err => console.log(err))
+    .finally(() => useLoaderStore().setLoading(false))
   }
 
   const deletNote = (id: string) => {
