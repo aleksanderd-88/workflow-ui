@@ -81,7 +81,7 @@ const onTextChange = (event: EditorTextChangeEvent) => {
   emit('on-text-change', params)
 }
 
-const debounceOnTextChange = debounce(onTextChange, 600)
+const debounceOnTextChange = debounce(onTextChange, 300)
 
 const resetStates = () => {
   statusText.value = ''

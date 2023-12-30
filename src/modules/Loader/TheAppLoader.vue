@@ -1,6 +1,6 @@
 <template>
   <div class="app-loader" v-if="isLoading">
-    <p>Loading ...</p>
+    <span class="loader"></span>
   </div>
 </template>
 
@@ -18,12 +18,14 @@ import { useLoaderStore } from './stores';
   right: 0;
   width: 100%;
   height: 100%;
+  z-index: 1000;
   display: flex;
-  z-index: 2;
-  background-color: #fff;
-
-  p {
-    margin: auto;
-  }
+  backdrop-filter: blur(2px);
+  background-color: rgba(#000, .1);
  }
+
+ .loader {
+  margin: auto;
+ }
+    
 </style>
