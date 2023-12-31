@@ -4,7 +4,8 @@
       <h1 class="note-list__headline">Your notes</h1>
       <AppButton
         icon="plus" 
-        class="add-btn"
+        hide-label
+        class="add-btn note-list__add-btn"
         @click="$router.push({ name: 'create' })"
       >
         Create new note
@@ -53,6 +54,17 @@ const viewNote = (id: string) => {
 
       @media (min-width: 450px) {
         justify-content: space-between;
+      }
+    }
+
+    &__add-btn {
+      @media (max-width: 1024px) {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
       }
     }
 

@@ -1,9 +1,12 @@
 <template>
   <button 
-    class="app-btn" 
+    class="app-btn"
+    :class="modifiedClass"
     :type="type"
   >
-    <slot />
+    <div class="app-btn__text-content">
+      <slot />
+    </div>
     <i 
       :class="`pi pi-${ icon }`" 
       style="font-size: 1.5rem" 
@@ -13,9 +16,9 @@
 </template>
 
 <script setup lang="ts">
-import type { ButtonHTMLAttributes, PropType } from 'vue';
+import { computed, type ButtonHTMLAttributes, type PropType } from 'vue';
 
-defineProps({
+const props = defineProps({
   type: {
     type: String as PropType<ButtonHTMLAttributes['type']>,
     default: 'button'
@@ -24,10 +27,28 @@ defineProps({
   icon: {
     type: String,
     default: null
+  },
+
+  hideLabel: {
+    type: Boolean,
+    default: false
   }
 })
+
+const modifiedClass = computed(() => props.hideLabel && 'app-btn--hide-label')
 </script>
 
 <style lang="scss" scoped>
+  .app-btn {
+    $root: &;
 
+    &--hide-label {
+      #{$root}__text-content {
+        display: none;
+        @media(min-width: 1024px) {
+          display: block;
+        }
+      }
+    }
+  }
 </style>

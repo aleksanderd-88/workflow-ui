@@ -63,7 +63,6 @@ const deleteNote = (id: string) => {
 <style lang="scss" scoped>
   .note-item {
     cursor: pointer;
-    display: flex;
     position: relative;
     overflow: hidden;
 
@@ -74,7 +73,6 @@ const deleteNote = (id: string) => {
     }
 
     &__content {
-      margin: auto;
       text-align: center;
       line-height: 1.7;
     }
