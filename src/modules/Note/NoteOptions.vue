@@ -45,7 +45,7 @@ const modifiedClass = computed(() => props.isVisible && 'note-options--visible')
     cursor: initial;
     border-radius: 10px;
     background-color: #fff;
-    transform: translateX(-100%);
+    transform: translateY(20px);
     opacity: 0;
     z-index: 1;
     visibility: hidden;
@@ -66,11 +66,10 @@ const modifiedClass = computed(() => props.isVisible && 'note-options--visible')
       display: flex;
       align-items: center;
       justify-content: space-around;
-      border-radius: 0 0 10px 10px;
       text-transform: uppercase;
 
       &--delete {
-        background-color: #dc3545;
+        background-color: #FF3D00;
         color: #fff;
       }
     }
@@ -78,7 +77,7 @@ const modifiedClass = computed(() => props.isVisible && 'note-options--visible')
     &--visible {
       opacity: 1;
       visibility: visible;
-      transform: translateX(0);
+      transform: translateY(0);
     }
   }
 </style>
