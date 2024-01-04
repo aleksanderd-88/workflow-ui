@@ -8,7 +8,7 @@
 
     <main class="note-item__content">
       <p class="note-item__created-at">
-        {{ createdAt }}
+        {{ updatedAt }}
       </p>
 
       <p class="note-item__timestamp">
@@ -48,8 +48,8 @@ const props = defineProps({
 
 const optionMenuVisible = ref(false)
 
-const createdAt = computed(() => moment(props.item.createdAt).format('YYYY-MM-DD'))
-const timestamp = computed(() => moment(props.item.createdAt).format('HH:mm'))
+const updatedAt = computed(() => moment(props.item.updatedAt).format('YYYY-MM-DD'))
+const timestamp = computed(() => moment(props.item.updatedAt).format('HH:mm'))
 
 const deleteNote = (id: string) => {
   if ( !confirm('Continue deleting note?') )

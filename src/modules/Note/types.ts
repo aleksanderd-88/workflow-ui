@@ -3,4 +3,5 @@ export type NotePropType = {
   text: string
   dueDate?: null | Date
   createdAt?: null | Date
+  updatedAt?: null | Date
 }
