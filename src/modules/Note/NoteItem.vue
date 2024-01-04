@@ -7,7 +7,7 @@
     />
 
     <main class="note-item__content">
-      <p class="note-item__created-at">
+      <p class="note-item__updated-at">
         {{ updatedAt }}
       </p>
 
